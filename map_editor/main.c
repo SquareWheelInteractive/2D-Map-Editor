@@ -11,8 +11,7 @@ int main(){
     int curr_monitor_refresh_rate = GetMonitorRefreshRate(GetCurrentMonitor());
     SetTargetFPS(curr_monitor_refresh_rate);
 
-    char* textures[TILE_TYPES] = {"Art/grass_tile_01.png", "Art/grass_tile_02.png", "Art/tree_tile_01.png"};
-    init_world_context(&context,textures);
+    init_world_context(&context);
 
     while (!WindowShouldClose()) {
 
@@ -27,6 +26,7 @@ int main(){
 
         BeginDrawing();
         ClearBackground(BLACK);
+        load_texture(&context);
         BeginMode2D(context.cam_2d);
 
             draw_editor(&context);
