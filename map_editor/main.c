@@ -1,9 +1,9 @@
 #include <raylib/raylib.h>
 #include <stdint.h>
-#include "editor_context.c"
+#include "editor_context.h"
 
 int main(){
-    world_context context;
+    EditorContext context;
     Vector2 scrn_size = get_screen_size(&context, 5.0f);
 
     InitWindow(scrn_size.x, scrn_size.y, "map editor");
@@ -26,12 +26,12 @@ int main(){
 
         BeginDrawing();
         ClearBackground(BLACK);
-        load_texture(&context);
         BeginMode2D(context.cam_2d);
 
             draw_editor(&context);
 
         EndMode2D();
+        load_texture(&context);
         EndDrawing();
     }
 
