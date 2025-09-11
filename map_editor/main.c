@@ -1,6 +1,7 @@
 #include <raylib/raylib.h>
 #include <stdint.h>
 #include "editor_context.h"
+#include "ui.h"
 
 int main(){
     EditorContext context;
@@ -31,7 +32,7 @@ int main(){
             draw_editor(&context);
 
         EndMode2D();
-        load_texture(&context);
+        ui_load_texture(&context);
         EndDrawing();
     }
 
