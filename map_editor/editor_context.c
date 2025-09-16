@@ -15,7 +15,7 @@ void init_world_context(EditorContext* editor_context){
     }
     editor_context->curr_tile_inx = 0;
 }
-Vector2 get_screen_size(EditorContext* editor_context, float world_scale){
+Vector2 set_screen_size(EditorContext* editor_context, float world_scale){
     if(!editor_context){
         return (Vector2){ 0, 0};
         printf("world context is null\n");

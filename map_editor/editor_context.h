@@ -17,7 +17,7 @@ typedef struct EditorContext{
 
 void init_world_context(EditorContext* world_context);
 void load_texture(EditorContext* context);
-Vector2 get_screen_size(EditorContext* world_context, float world_scale);
+Vector2 set_screen_size(EditorContext* world_context, float world_scale);
 void clear_map(int16_t map_width, int16_t map_height, int16_t map[map_width][map_height], int key);
 void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* context);
 void draw_editor(EditorContext* context);

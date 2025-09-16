@@ -2,6 +2,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raylib/raygui.h>
 #include "ui.h"
+#include "editor_context.h"
 
 bool show_load_box = false;
 #define PATH_MAX_CHAR_LENGTH 100
@@ -27,4 +28,7 @@ void ui_load_texture(EditorContext* editor_context){
             break;
         }
     }
+}
+void draw_ui(EditorContext* editor_context){
+    ui_load_texture(editor_context);
 }
