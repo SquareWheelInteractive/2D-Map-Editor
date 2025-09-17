@@ -6,7 +6,7 @@ void draw_tiles(EditorContext* context){
 
     for (int16_t col = 0; col < MAP_WIDTH; col++) {
         for (int16_t row = 0; row < MAP_HEIGHT; row++) {
-            int tile_id = context->map_dimensions[col][row];
+            int tile_id = context->map_dimensions[col * MAP_WIDTH + row];
             for (int16_t t = 0; t < context->curr_tile_inx; t++) {
                 if(tile_id>0 && context->tile_types_arr[t].id == tile_id){
                     DrawTexture(context->tile_types_arr[t].texture, col*TILE_SIZE, row*TILE_SIZE, WHITE);

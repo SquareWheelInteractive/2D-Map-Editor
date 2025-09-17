@@ -10,7 +10,7 @@ void init_world_context(EditorContext* editor_context){
     if(!editor_context)return;
     for (int16_t i = 0; i< MAP_WIDTH; i++) {
         for (int16_t j= 0; j<MAP_HEIGHT; j++) {
-            editor_context->map_dimensions[i][j] = 0;
+            editor_context->map_dimensions[i * MAP_WIDTH + j] = 0;
         }
     }
     editor_context->curr_tile_inx = 0;
@@ -40,16 +40,16 @@ void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* editor_contex
             int row = floorf(mouse_pos.y / (TILE_SIZE*editor_context->cam_2d.zoom));
 
             if(col < MAP_WIDTH && row < MAP_HEIGHT){
-                editor_context->map_dimensions[col][row] = editor_context->tile_selector;
+                editor_context->map_dimensions[col * MAP_WIDTH + row] = editor_context->tile_selector;
             }
         }
     }
 }
-void clear_map(int16_t map_width, int16_t map_height, int16_t map[map_width][map_height], int key){
+void clear_map(int16_t map_width, int16_t map_height, int16_t* map, int key){
     if(IsKeyDown(key)){
         for (int16_t i =0; i < map_width; i++) {
             for (int16_t j =0; j < map_height; j++) {
-                map[i][j] = 0;
+                map[i* map_width + j] = 0;
             }
         }    
     }
@@ -83,7 +83,7 @@ void send_to_txt(EditorContext* editor_context){
     // Write array to file
     for (int row = 0; row < MAP_HEIGHT; row++) {
         for (int col = 0; col < MAP_WIDTH; col++) {
-            fprintf(file, "%d ", editor_context->map_dimensions[col][row]);
+            fprintf(file, "%d ", editor_context->map_dimensions[col * MAP_WIDTH + row]);
         }
         fprintf(file, "\n");
     }
