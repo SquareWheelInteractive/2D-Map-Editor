@@ -4,9 +4,9 @@
 void draw_tiles(EditorContext* context){
     if(!context || context->curr_tile_inx <= 0) return; 
 
-    for (int16_t col = 0; col < MAP_WIDTH; col++) {
-        for (int16_t row = 0; row < MAP_HEIGHT; row++) {
-            int tile_id = context->map_dimensions[row * MAP_WIDTH + col];
+    for (int16_t col = 0; col < context->map_width; col++) {
+        for (int16_t row = 0; row < context->map_height; row++) {
+            int tile_id = context->map_dimensions[row * context->map_width+ col];
             for (int16_t t = 0; t < context->curr_tile_inx; t++) {
                 if(tile_id>0 && context->tile_types_arr[t].id == tile_id){
                     DrawTexture(context->tile_types_arr[t].texture, col*TILE_SIZE, row*TILE_SIZE, WHITE);

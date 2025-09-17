@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <raylib/raylib.h>
 #include <math.h>
 #include <stdint.h>
@@ -8,14 +9,14 @@
 
 void init_world_context(EditorContext* editor_context){
     if(!editor_context)return;
-    for (int16_t i = 0; i< MAP_WIDTH; i++) {
-        for (int16_t j= 0; j<MAP_HEIGHT; j++) {
-            editor_context->map_dimensions[j * MAP_WIDTH + i] = 0;
+    for (int16_t i = 0; i< editor_context->map_width; i++) {
+        for (int16_t j= 0; j < editor_context->map_height; j++) {
+            editor_context->map_dimensions[j * editor_context->map_width + i] = 0;
         }
     }
     editor_context->curr_tile_inx = 0;
 }
-Vector2 set_screen_size(EditorContext* editor_context, float world_scale){
+Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale){
     if(!editor_context){
         return (Vector2){ 0, 0};
         printf("world context is null\n");
@@ -24,9 +25,13 @@ Vector2 set_screen_size(EditorContext* editor_context, float world_scale){
     editor_context->cam_2d.target = (Vector2){0,0};
     editor_context->cam_2d.zoom = world_scale;
 
+    assert((map_width * map_height) < (MAX_MAP_SIZE * MAX_MAP_SIZE));
+    editor_context->map_width = map_width;
+    editor_context->map_height = map_height;
+
     Vector2 scrn_width_height;
-    scrn_width_height.x = MAP_WIDTH  * (TILE_SIZE * editor_context->cam_2d.zoom);
-    scrn_width_height.y = MAP_HEIGHT * (TILE_SIZE * editor_context->cam_2d.zoom);
+    scrn_width_height.x = editor_context->map_width* (TILE_SIZE * editor_context->cam_2d.zoom);
+    scrn_width_height.y = editor_context->map_height* (TILE_SIZE * editor_context->cam_2d.zoom);
 
     return scrn_width_height;
 }
@@ -39,8 +44,8 @@ void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* editor_contex
             int col = floorf(mouse_pos.x / (TILE_SIZE*editor_context->cam_2d.zoom));
             int row = floorf(mouse_pos.y / (TILE_SIZE*editor_context->cam_2d.zoom));
 
-            if(col < MAP_WIDTH && row < MAP_HEIGHT){
-                editor_context->map_dimensions[row * MAP_WIDTH + col] = editor_context->tile_selector;
+            if(col < editor_context->map_width && row < editor_context->map_height){
+                editor_context->map_dimensions[row * editor_context->map_width + col] = editor_context->tile_selector;
             }
         }
     }
@@ -64,7 +69,7 @@ void draw_editor(EditorContext* editor_context){
         DrawTexture(editor_context->tile_types_arr[editor_context->tile_selector - 1].texture, mouse_pos.x, mouse_pos.y, WHITE);
     }
 
-    DrawLineV((Vector2){0, TILE_SIZE * MAP_HEIGHT}, (Vector2){TILE_SIZE*MAP_WIDTH, TILE_SIZE*MAP_HEIGHT}, GRAY);
+    // DrawLineV((Vector2){0, TILE_SIZE * MAP_HEIGHT}, (Vector2){TILE_SIZE*MAP_WIDTH, TILE_SIZE*MAP_HEIGHT}, GRAY);
 }
 void unload_context(EditorContext* editor_context){
     if(!editor_context)return;
@@ -81,9 +86,9 @@ void send_to_txt(EditorContext* editor_context){
     }
 
     // Write array to file
-    for (int row = 0; row < MAP_HEIGHT; row++) {
-        for (int col = 0; col < MAP_WIDTH; col++) {
-            fprintf(file, "%d ", editor_context->map_dimensions[row * MAP_WIDTH + col]);
+    for (int row = 0; row < editor_context->map_height; row++) {
+        for (int col = 0; col < editor_context->map_width; col++) {
+            fprintf(file, "%d ", editor_context->map_dimensions[row * editor_context->map_width + col]);
         }
         fprintf(file, "\n");
     }
