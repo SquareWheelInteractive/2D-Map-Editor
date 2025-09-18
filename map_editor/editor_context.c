@@ -54,7 +54,7 @@ void clear_map(int16_t map_width, int16_t map_height, int16_t* map, int key){
     if(IsKeyDown(key)){
         for (int16_t i =0; i < map_width; i++) {
             for (int16_t j =0; j < map_height; j++) {
-                map[i* map_width + j] = 0;
+                map[j * map_width + i] = 0;
             }
         }    
     }
@@ -68,8 +68,6 @@ void draw_editor(EditorContext* editor_context){
         Vector2 mouse_pos = GetScreenToWorld2D(GetMousePosition(), editor_context->cam_2d);
         DrawTexture(editor_context->tile_types_arr[editor_context->tile_selector - 1].texture, mouse_pos.x, mouse_pos.y, WHITE);
     }
-
-    // DrawLineV((Vector2){0, TILE_SIZE * MAP_HEIGHT}, (Vector2){TILE_SIZE*MAP_WIDTH, TILE_SIZE*MAP_HEIGHT}, GRAY);
 }
 void unload_context(EditorContext* editor_context){
     if(!editor_context)return;

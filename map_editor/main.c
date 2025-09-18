@@ -5,11 +5,12 @@ int main(){
     Editor editor;
     editor_init(&editor);
 
-    while (!WindowShouldClose()) {
+    while(!WindowShouldClose()) {
 
         editor_update(&editor);
 
         editor_draw(&editor);
     }
+    editor_unload(&editor);
     return 0;
 }

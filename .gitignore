@@ -1,5 +1,6 @@
 *.txt
 *.out
 *.json
+makefile
 
 map_editor/.cache/
