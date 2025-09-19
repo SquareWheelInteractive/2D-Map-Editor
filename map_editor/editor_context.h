@@ -11,7 +11,7 @@ typedef struct EditorContext{
     Tile tile_types_arr[MAX_TILE_TYPES];
     int16_t map_dimensions[MAX_MAP_SIZE * MAX_MAP_SIZE];
     int16_t tile_selector;
-    int8_t curr_tile_inx;
+    int8_t tile_amount_num;
     int16_t map_width;
     int16_t map_height;
 } EditorContext;

@@ -21,9 +21,9 @@ void ui_load_texture(EditorContext* editor_context){
                 ;Texture tex = LoadTexture(path_text);
                 if(tex.id == 0)
                     printf("texture path is invalid");
-                editor_context->tile_types_arr[editor_context->curr_tile_inx].texture = tex;
-                editor_context->tile_types_arr[editor_context->curr_tile_inx].id = editor_context->curr_tile_inx + 1;
-                editor_context->curr_tile_inx++;
+                editor_context->tile_types_arr[editor_context->tile_amount_num].texture = tex;
+                editor_context->tile_types_arr[editor_context->tile_amount_num].id = editor_context->tile_amount_num + 1;
+                editor_context->tile_amount_num++;
                 show_load_box = false;
             break;
         }
