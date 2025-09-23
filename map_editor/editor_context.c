@@ -8,13 +8,15 @@
 #include "tile.h"
 
 void init_world_context(EditorContext* editor_context){
+    editor_context->tile_selector = 0;
+    editor_context->tile_amount_num = 0;
+
     if(!editor_context)return;
     for (int16_t i = 0; i< editor_context->map_width; i++) {
         for (int16_t j= 0; j < editor_context->map_height; j++) {
             editor_context->map_dimensions[j * editor_context->map_width + i] = 0;
         }
     }
-    editor_context->tile_amount_num = 0;
 }
 Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale){
     if(!editor_context){
@@ -65,9 +67,11 @@ void draw_editor(EditorContext* editor_context){
     draw_tiles(editor_context);
 
     //draw current tile at cursor position
-    if(editor_context->tile_selector != 0){
+    if(editor_context->tile_selector > 0){
         Vector2 mouse_pos = GetScreenToWorld2D(GetMousePosition(), editor_context->cam_2d);
-        DrawTexture(editor_context->tile_types_arr[editor_context->tile_selector - 1].texture, mouse_pos.x, mouse_pos.y, WHITE);
+        Texture2D tex = editor_context->tile_types_arr[editor_context->tile_selector - 1].texture; 
+        if(tex.id > 0)
+            DrawTexture(tex, mouse_pos.x, mouse_pos.y, WHITE);
     }
 }
 void unload_context(EditorContext* editor_context){

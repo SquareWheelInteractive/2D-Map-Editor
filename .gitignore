@@ -1,3 +1,5 @@
+*.o
+*.ini
 *.txt
 *.out
 *.json
