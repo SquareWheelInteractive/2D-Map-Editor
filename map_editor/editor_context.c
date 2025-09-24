@@ -6,17 +6,20 @@
 
 #include "editor_context.h"
 #include "tile.h"
+#include "rlImGui.h"
 
 void init_world_context(EditorContext* editor_context){
-    editor_context->tile_selector = 0;
-    editor_context->tile_amount_num = 0;
-
     if(!editor_context)return;
+
     for (int16_t i = 0; i< editor_context->map_width; i++) {
         for (int16_t j= 0; j < editor_context->map_height; j++) {
             editor_context->map_dimensions[j * editor_context->map_width + i] = 0;
         }
     }
+    editor_context->tile_selector = 0;
+    editor_context->tile_amount_num = 0;
+
+    rlImGuiSetup(true);
 }
 Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale){
     if(!editor_context){
@@ -25,6 +28,7 @@ Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_
     }
     editor_context->cam_2d.offset = (Vector2){0,0};
     editor_context->cam_2d.target = (Vector2){0,0};
+    editor_context->cam_2d.rotation= 0;
     editor_context->cam_2d.zoom = world_scale;
 
     assert((map_width * map_height) < (MAX_MAP_SIZE * MAX_MAP_SIZE));
@@ -79,6 +83,7 @@ void unload_context(EditorContext* editor_context){
     for (int16_t i = 0; i < editor_context->tile_amount_num; i++) {
         UnloadTexture(editor_context->tile_types_arr[i].texture);
     }
+    rlImGuiShutdown();
 }
 void send_to_txt(EditorContext* editor_context){
     if(!editor_context)return;

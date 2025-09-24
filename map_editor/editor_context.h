@@ -5,7 +5,7 @@
 #include "tile.h"
 
 #define MAX_MAP_SIZE 32
-
+#define MAX_TILE_TYPES 32
 typedef struct EditorContext{
     Camera2D cam_2d;
     Tile tile_types_arr[MAX_TILE_TYPES];

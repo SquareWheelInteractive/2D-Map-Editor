@@ -4,7 +4,6 @@
 #include <stdint.h>
 
 #define TILE_SIZE 12
-#define MAX_TILE_TYPES 32
 typedef struct Tile{
     int16_t id;
     Texture2D texture;

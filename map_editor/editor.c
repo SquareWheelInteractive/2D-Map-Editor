@@ -1,4 +1,5 @@
 #include "editor.h"
+#include "raylib.h"
 #include "ui.h"
 
 void editor_init(Editor* editor){
@@ -31,6 +32,7 @@ void editor_draw(Editor *editor){
 
     EndMode2D();
     draw_ui(&editor->context);
+    DrawFPS(12, 12);
     EndDrawing();
 }
 void editor_unload(Editor *editor){
