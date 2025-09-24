@@ -1,0 +1,6 @@
+[submodule "map_editor/rlImGui"]
+	path = map_editor/rlImGui
+	url = https://github.com/raylib-extras/rlImGui.git
+[submodule "map_editor/imgui"]
+	path = map_editor/imgui
+	url = https://github.com/ocornut/imgui.git
