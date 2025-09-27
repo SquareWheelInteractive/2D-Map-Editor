@@ -16,11 +16,11 @@ typedef struct EditorContext{
     int16_t map_height;
 } EditorContext;
 
-void init_world_context(EditorContext* world_context);
+void init_world_context(EditorContext* editor_context);
 void load_texture(EditorContext* context);
-Vector2 set_screen_size(EditorContext* world_context, int16_t map_width, int16_t map_height, float world_scale);
+Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale);
 void clear_map(int16_t map_width, int16_t map_height, int16_t* map, int key);
-void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* context);
-void draw_editor(EditorContext* context);
-void unload_context(EditorContext* context);
-void send_to_txt(EditorContext* context);
+void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* editor_context);
+void draw_editor(EditorContext* editor_context);
+void unload_context(EditorContext* editor_context);
+void send_to_txt(EditorContext* editor_context);

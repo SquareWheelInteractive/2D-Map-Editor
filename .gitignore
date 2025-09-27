@@ -6,3 +6,4 @@
 makefile
 
 map_editor/.cache/
+map_editor/core/.cache/

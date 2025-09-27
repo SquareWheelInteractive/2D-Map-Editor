@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 #include "editor_context.h"
-#include "tile.h"
 #include "rlImGui.h"
+#include "tile.h"
 
 void init_world_context(EditorContext* editor_context){
     if(!editor_context)return;
@@ -19,7 +19,7 @@ void init_world_context(EditorContext* editor_context){
     editor_context->tile_selector = 0;
     editor_context->tile_amount_num = 0;
 
-    rlImGuiSetup(true);
+    // rlImGuiSetup(true);
 }
 Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale){
     if(!editor_context){
@@ -31,7 +31,7 @@ Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_
     editor_context->cam_2d.rotation= 0;
     editor_context->cam_2d.zoom = world_scale;
 
-    assert((map_width * map_height) < (MAX_MAP_SIZE * MAX_MAP_SIZE));
+    assert((map_width * map_height) <= (MAX_MAP_SIZE * MAX_MAP_SIZE));
     editor_context->map_width = map_width;
     editor_context->map_height = map_height;
 
@@ -77,6 +77,8 @@ void draw_editor(EditorContext* editor_context){
         if(tex.id > 0)
             DrawTexture(tex, mouse_pos.x, mouse_pos.y, WHITE);
     }
+
+    DrawLine(0, editor_context->map_height * TILE_SIZE, editor_context->map_width * TILE_SIZE, editor_context->map_height * TILE_SIZE, GRAY);
 }
 void unload_context(EditorContext* editor_context){
     if(!editor_context)return;
