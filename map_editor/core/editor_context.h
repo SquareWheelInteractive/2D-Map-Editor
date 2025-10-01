@@ -14,6 +14,7 @@ typedef struct EditorContext{
     int8_t tile_amount_num;
     int16_t map_width;
     int16_t map_height;
+    int16_t tile_size;
 } EditorContext;
 
 void init_world_context(EditorContext* editor_context);

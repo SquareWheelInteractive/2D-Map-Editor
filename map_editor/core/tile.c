@@ -9,7 +9,7 @@ void draw_tiles(EditorContext* context){
             int tile_id = context->map_dimensions[row * context->map_width+ col];
             for (int16_t t = 0; t < context->tile_amount_num; t++) {
                 if(tile_id>0 && context->tile_types_arr[t].id == tile_id){
-                    DrawTexture(context->tile_types_arr[t].texture, col*TILE_SIZE, row*TILE_SIZE, WHITE);
+                    DrawTexture(context->tile_types_arr[t].texture, col*context->tile_size, row*context->tile_size, WHITE);
                     break;
                 }
             }

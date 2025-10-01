@@ -52,6 +52,7 @@ bool settings_choosed = false;
 int m_w = 0;
 int m_h = 0;
 int w_scale = 0;
+int tile_size = 0;
 void map_settings_ui(EditorContext* editor_context){
     if(!editor_context)return;
 
@@ -63,12 +64,14 @@ void map_settings_ui(EditorContext* editor_context){
                      ImGuiWindowFlags_NoCollapse); // Create a window
         ImGui::InputInt("map width", &m_w);
         ImGui::InputInt("map height", &m_h);
+        ImGui::InputInt("tile size", &tile_size);
         ImGui::InputInt("world scale", &w_scale);
         if(ImGui::Button("set")){
-            if(w_scale <= 0 || m_w <= 0 || m_h <= 0 || m_w * m_h > MAX_MAP_SIZE * MAX_MAP_SIZE){
+            if(w_scale <= 0 || m_w <= 0 || m_h <= 0 || m_w * m_h > MAX_MAP_SIZE * MAX_MAP_SIZE || tile_size <= 0){
                 ImGui::End();
                 return;
             }
+            editor_context->tile_size = tile_size;
             Vector2 scn_size = set_screen_size(editor_context, m_w, m_h, (float)w_scale);
             SetWindowSize((int)scn_size.x, (int)scn_size.y);
             init_world_context(editor_context);

@@ -18,8 +18,6 @@ void init_world_context(EditorContext* editor_context){
     }
     editor_context->tile_selector = 0;
     editor_context->tile_amount_num = 0;
-
-    // rlImGuiSetup(true);
 }
 Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_t map_height, float world_scale){
     if(!editor_context){
@@ -36,8 +34,8 @@ Vector2 set_screen_size(EditorContext* editor_context, int16_t map_width, int16_
     editor_context->map_height = map_height;
 
     Vector2 scrn_width_height;
-    scrn_width_height.x = editor_context->map_width* (TILE_SIZE * editor_context->cam_2d.zoom);
-    scrn_width_height.y = editor_context->map_height* (TILE_SIZE * editor_context->cam_2d.zoom);
+    scrn_width_height.x = editor_context->map_width * (editor_context->tile_size * editor_context->cam_2d.zoom);
+    scrn_width_height.y = editor_context->map_height* (editor_context->tile_size * editor_context->cam_2d.zoom);
 
     return scrn_width_height;
 }
@@ -47,10 +45,11 @@ void paint(int16_t scrn_width, int16_t scrn_height, EditorContext* editor_contex
     if(IsCursorOnScreen()){
         if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
             Vector2 mouse_pos = GetMousePosition();
-            int col = floorf(mouse_pos.x / (TILE_SIZE*editor_context->cam_2d.zoom));
-            int row = floorf(mouse_pos.y / (TILE_SIZE*editor_context->cam_2d.zoom));
+            int col = floorf(mouse_pos.x / (editor_context->tile_size *editor_context->cam_2d.zoom));
+            int row = floorf(mouse_pos.y / (editor_context->tile_size *editor_context->cam_2d.zoom));
 
-            if(col < editor_context->map_width && row < editor_context->map_height){
+            if(col >= 0 && col < editor_context->map_width &&
+               row >= 0 && row < editor_context->map_height){
                 editor_context->map_dimensions[row * editor_context->map_width + col] = editor_context->tile_selector;
             }
         }
@@ -78,7 +77,7 @@ void draw_editor(EditorContext* editor_context){
             DrawTexture(tex, mouse_pos.x, mouse_pos.y, WHITE);
     }
 
-    DrawLine(0, editor_context->map_height * TILE_SIZE, editor_context->map_width * TILE_SIZE, editor_context->map_height * TILE_SIZE, GRAY);
+    DrawLine(0, editor_context->map_height * editor_context->tile_size, editor_context->map_width * editor_context->tile_size, editor_context->map_height * editor_context->tile_size, GRAY);
 }
 void unload_context(EditorContext* editor_context){
     if(!editor_context)return;

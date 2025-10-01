@@ -3,7 +3,6 @@
 #include <raylib/raylib.h>
 #include <stdint.h>
 
-#define TILE_SIZE 12
 typedef struct Tile{
     int16_t id;
     Texture2D texture;
